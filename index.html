@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi E-Commerce</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tienda Nuestra</h1>
+        
+        <span id="cartCount">0</span>
+    </header>
+    <main>
+        <section>
+            <h2>Productos</h2>
+            <ul id="productList">
+                <li>Producto 1 - $20 <button class="add-to-cart" data-product='{"id": 1, "name": "Producto 1", "price": 20}'>Agregar al Carrito</button></li>
+                <li>Producto 2 - $30 <button class="add-to-cart" data-product='{"id": 2, "name": "Producto 2", "price": 30}'>Agregar al Carrito</button></li>
+                <li>Producto 3 - $25 <button class="add-to-cart" data-product='{"id": 3, "name": "Producto 3", "price": 25}'>Agregar al Carrito</button></li>
+            </ul>
+        </section>
+        <section id="cartSection">
+            <button id="cart">Ver Carrito</button>
+            <h2>Carrito de Compras</h2>
+            <ul id="cartList">
+                <!-- Los elementos del carrito se agregarán aquí -->
+            </ul>
+            <p id="totalPrice">Total: $0.00</p>
+            <button id="checkoutButton">Completar mi compra</button>
+        </section>
+    </main>
+   
+
+    <!-- Popup para el mensaje de éxito -->
+    <div id="successMessage" class="success-message">
+        Compra realizada exitosamente.
+    </div>
+
+    <!-- Popup para la ventana de pago -->
+    <div id="paymentPopup" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closePopup">&times;</span>
+            <h2>Resumen de Compra</h2>
+            <ul id="selectedProducts"></ul>
+            <span id="totalAmount">$0.00</span>
+            <h3>Selecciona un método de pago:</h3>
+            <select id="paymentMethod">
+                <option value="tarjeta">Tarjeta de crédito</option>
+                <option value="paypal">PayPal</option>
+                <!-- Agrega otras opciones de métodos de pago aquí -->
+            </select>
+            <h3>Selecciona el número de cuotas:</h3>
+            <select id="installments">
+                <option value="1">1 cuota</option>
+                <option value="2">2 cuotas</option>
+                <option value="3">3 cuotas</option>
+                <!-- Agrega otras opciones de cuotas aquí -->
+            </select>
+            <button id="completePurchase">Completar mi compra</button>
+        </div>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+</html>
+
+
+<footer>
+    <p>&copy; 2023 Mi E-Commerce. Todos los derechos reservados.</p>
+</footer>
