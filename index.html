@@ -5,33 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi E-Commerce</title>
     <link rel="stylesheet" href="./styles.css">
+    <!-- Agrega el enlace a la librería Sweet Alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
 </head>
 <body>
     <header>
         <h1>Tienda Nuestra</h1>
-        
         <span id="cartCount">0</span>
     </header>
     <main>
         <section>
             <h2>Productos</h2>
             <ul id="productList">
-                <li>Producto 1 - $20 <button class="add-to-cart" data-product='{"id": 1, "name": "Producto 1", "price": 20}'>Agregar al Carrito</button></li>
-                <li>Producto 2 - $30 <button class="add-to-cart" data-product='{"id": 2, "name": "Producto 2", "price": 30}'>Agregar al Carrito</button></li>
-                <li>Producto 3 - $25 <button class="add-to-cart" data-product='{"id": 3, "name": "Producto 3", "price": 25}'>Agregar al Carrito</button></li>
+                <!-- Aquí se cargarán los productos desde JavaScript -->
             </ul>
         </section>
         <section id="cartSection">
             <button id="cart">Ver Carrito</button>
             <h2>Carrito de Compras</h2>
             <ul id="cartList">
-                <!-- Los elementos del carrito se agregarán aquí -->
+                <!-- Los elementos del carrito se agregarán aquí desde JavaScript -->
             </ul>
             <p id="totalPrice">Total: $0.00</p>
             <button id="checkoutButton">Completar mi compra</button>
         </section>
     </main>
-   
 
     <!-- Popup para el mensaje de éxito -->
     <div id="successMessage" class="success-message">
@@ -40,33 +38,30 @@
 
     <!-- Popup para la ventana de pago -->
     <div id="paymentPopup" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closePopup">&times;</span>
-            <h2>Resumen de Compra</h2>
-            <ul id="selectedProducts"></ul>
-            <span id="totalAmount">$0.00</span>
-            <h3>Selecciona un método de pago:</h3>
-            <select id="paymentMethod">
-                <option value="tarjeta">Tarjeta de crédito</option>
-                <option value="paypal">PayPal</option>
-                <!-- Agrega otras opciones de métodos de pago aquí -->
-            </select>
-            <h3>Selecciona el número de cuotas:</h3>
-            <select id="installments">
-                <option value="1">1 cuota</option>
-                <option value="2">2 cuotas</option>
-                <option value="3">3 cuotas</option>
-                <!-- Agrega otras opciones de cuotas aquí -->
-            </select>
-            <button id="completePurchase">Completar mi compra</button>
-        </div>
+        <!-- Contenido del popup (desde JavaScript) -->
+        <h3>Resumen de Compra</h3>
+        <ul id="selectedProducts">
+            <!-- Los productos seleccionados se agregarán aquí -->
+        </ul>
+        <p id="totalAmount">Total a pagar: $0.00</p>
+        <select id="paymentMethod">
+            <option value="creditCard">Tarjeta de Crédito</option>
+            <option value="debitCard">Tarjeta de Débito</option>
+            <option value="cash">Efectivo</option>
+        </select>
+        <button id="completePurchase">Finalizar Compra</button>
+        <button id="closePopup">Cerrar</button>
     </div>
+    <div id="cartTotal">Total: $0.00</div>
+    
 
+    <!-- Agrega el enlace al archivo JSON -->
+    <script src="./ropa.json"></script>
+
+    <!-- Enlaces a tus scripts -->
     <script src="./main.js"></script>
+    <script src="./carrito.js"></script>
+    <!-- Agrega el enlace a la librería Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
-
-
-<footer>
-    <p>&copy; 2023 Mi E-Commerce. Todos los derechos reservados.</p>
-</footer>

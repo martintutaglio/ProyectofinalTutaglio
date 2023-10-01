@@ -1,0 +1,36 @@
+{
+  "productosRopa": [
+    {
+      "id": 1,
+      "nombre": "Remera",
+      "precio": 900,
+      
+      "talla": ["S", "M", "L", "XL"],
+      "color": ["Rojo", "Azul", "Negro"]
+    },
+    {
+      "id": 2,
+      "nombre": "Pantalones",
+      "precio": 1200,
+      
+      "talla": ["S", "M", "L", "XL"],
+      "color": ["Azul", "Negro", "Gris"]
+    },
+    {
+      "id": 3,
+      "nombre": "Vestido",
+      "precio": 1000,
+      
+      "talla": ["S", "M", "L"],
+      "color": ["Rojo", "Negro", "Blanco"]
+    },
+    {
+      "id": 4,
+      "nombre": "Chaqueta cuero",
+      "precio": 4500,
+      
+      "talla": ["S", "M", "L", "XL"],
+      "color": ["Negro", "Azul Marino", "Verde"]
+    }
+  ]
+}

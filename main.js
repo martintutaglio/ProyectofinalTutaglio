@@ -9,28 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const closePopupButton = document.getElementById("closePopup");
     const completePurchaseButton = document.getElementById("completePurchase");
     const successMessage = document.getElementById("successMessage");
+    
+    let products = [];
 
-    const products = [
-        { id: 1, name: "Remera", price: 500 },
-        { id: 2, name: "Pantalones", price: 1200 },
-        { id: 3, name: "Championes", price: 4900 },
-        { id: 4, name: "Medias", price: 250 },
-        { id: 5, name: "Bufanda", price: 300 },
-    ];
-
-    // Función para crear un elemento de producto
     function createProductElement(product) {
         const listItem = document.createElement("li");
         listItem.className = "product-item";
         listItem.innerHTML = `
-            <span class="product-name">${product.name}</span>
-            <span class="product-price">$${product.price.toFixed(2)}</span>
+            <span class="product-name">${product.nombre}</span>
+            <span class="product-price">$${product.precio.toFixed(2)}</span>
             <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Agregar al carrito</button>
         `;
         return listItem;
     }
 
-    // Función para mostrar productos en la lista
     function displayProducts() {
         productList.innerHTML = "";
         products.forEach(product => {
@@ -39,7 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    displayProducts();
+    fetch("./ropa.json")
+        .then(response => response.json())
+        .then(data => {
+            products = data.productosRopa;
+            displayProducts();
+        })
+        .catch(error => {
+            console.error("Error al cargar productos:", error);
+        });
 
     const cart = {
         items: [],
@@ -62,12 +62,12 @@ document.addEventListener("DOMContentLoaded", function () {
             cartList.innerHTML = "";
             this.items.forEach(item => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                listItem.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
                 cartList.appendChild(listItem);
             });
         },
         calculateTotal: function () {
-            const total = this.items.reduce((acc, item) => acc + item.price, 0);
+            const total = this.items.reduce((acc, item) => acc + item.precio, 0);
             totalPrice.textContent = `Total: $${total.toFixed(2)}`;
         },
     };
@@ -83,65 +83,75 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     cartButton.addEventListener("click", function () {
-        // Mostrar el carrito de compras de alguna manera, como un modal o una página separada.
         console.log("Botón 'Ver Carrito' fue clickeado");
         cart.displayCartItems();
     });
 
     checkoutButton.addEventListener("click", function () {
-        // Obtener el elemento ul donde se mostrarán los productos seleccionados
         const selectedProductsList = document.getElementById("selectedProducts");
         selectedProductsList.innerHTML = "";
 
-        // Calcular el total de la compra
         let totalAmount = 0;
 
-        // Iterar a través de los productos seleccionados
         cart.items.forEach(item => {
             const listItem = document.createElement("li");
-            listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+            listItem.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
             selectedProductsList.appendChild(listItem);
 
-            // Sumar el precio de cada producto al total
-            totalAmount += item.price;
+            totalAmount += item.precio;
         });
 
-        // Obtener el elemento donde se mostrará el total
         const totalAmountElement = document.getElementById("totalAmount");
 
-        // Actualizar el contenido del total
         totalAmountElement.textContent = `Total a pagar: $${totalAmount.toFixed(2)}`;
 
-        // Mostrar el popup
         paymentPopup.style.display = "block";
     });
-    
 
     closePopupButton.addEventListener("click", function () {
-        // Ocultar el popup al hacer clic en la "X" (Cerrar)
         paymentPopup.style.display = "none";
     });
 
     completePurchaseButton.addEventListener("click", function () {
-        // Mostrar el mensaje de éxito
         successMessage.style.display = "block";
-
-        // Ocultar el popup
         paymentPopup.style.display = "none";
 
-        // Limpia el carrito después de un pago exitoso si es necesario.
-        // cart.clearCart();
-
-        // Oculta automáticamente el mensaje de éxito después de 3 segundos (3000 milisegundos)
         setTimeout(function () {
             successMessage.style.display = "none";
-        }, 3000); // 3 segundos
+        }, 3000);
     });
 
-    
-
-    // Actualizar la cantidad de productos en el carrito al cargar la página
     cart.updateCartCount();
     cart.displayCartItems();
     cart.calculateTotal();
+    
+    const cartPopup = document.getElementById("cartPopup");
+    const closeCartPopup = document.getElementById("closeCartPopup");
+
+    cartButton.addEventListener("click", function () {
+        // Mostrar el popup del carrito al hacer clic en "Ver Carrito"
+        cartPopup.style.display = "block";
+
+        // Actualizar la lista de productos seleccionados y el total
+        const selectedProductsList = document.getElementById("selectedProducts");
+        selectedProductsList.innerHTML = "";
+
+        let totalAmount = 0;
+
+        cart.items.forEach(item => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+            selectedProductsList.appendChild(listItem);
+
+            totalAmount += item.precio;
+        });
+
+        const totalAmountElement = document.getElementById("totalAmount");
+        totalAmountElement.textContent = `Total a pagar: $${totalAmount.toFixed(2)}`;
+    });
+
+    // Agregar un evento para cerrar el popup del carrito al hacer clic en la "X"
+    closeCartPopup.addEventListener("click", function () {
+        cartPopup.style.display = "none";
+    });
 });
